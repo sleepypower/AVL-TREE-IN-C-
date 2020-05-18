@@ -579,9 +579,9 @@ namespace BinaryTreeScope
 
 
 	/*
-	*
-	*
-	*
+	*Prints the tree in 2D
+	*Input: None
+	*Output: (void)
  	*/
 	template <typename T>
 	void BinaryTree<T>::toStringHelper(Node<T>* current_node, int count, int secondCount)
@@ -609,7 +609,7 @@ namespace BinaryTreeScope
 
 	
 	/*
-	*Prints the tree in  2D
+	*Wrapper for toStringHelper
 	*Input: None
 	*Output: (void)
  	*/
