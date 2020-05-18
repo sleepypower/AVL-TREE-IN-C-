@@ -97,11 +97,7 @@ namespace BinaryTreeScope
 
 		void fixImbalance(Node<T>* &current_node);
 
-
-
-		//********AVL METHODS********
-
-
+		//***************************
 	};
 
 	
@@ -290,10 +286,8 @@ namespace BinaryTreeScope
 	template <typename T>
 	void BinaryTree<T>::remove(T key)
 	{
-
 		Node<T>* node_to_destroy = find(key);
 		remove_node(node_to_destroy, key);
-
 	}
 
 
@@ -368,7 +362,6 @@ namespace BinaryTreeScope
 		else //current_node->key > key
 		{
 			return find_node(current_node->right, key);
-
 		}
 	}
 
@@ -402,7 +395,6 @@ namespace BinaryTreeScope
 		{
 			return max(current_node->right);
 		}
-
 	}
 	
 	
@@ -423,7 +415,6 @@ namespace BinaryTreeScope
 		{
 			return min(current_node->left);
 		}
-
 	}
 
 
@@ -602,8 +593,6 @@ namespace BinaryTreeScope
 			std::cout << current_node->key << std::endl;
 
 			toStringHelper(current_node->left, count, secondCount);
-
-
 		}
 	}
 
