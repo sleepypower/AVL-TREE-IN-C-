@@ -83,7 +83,7 @@ namespace BinaryTreeScope
 
 
 
-	 	//****************
+	 	//********AVL METHODS********
 
 		int balFactOfNode(Node<T>* &current_node);
 
@@ -99,12 +99,17 @@ namespace BinaryTreeScope
 
 
 
-		//****************
+		//********AVL METHODS********
 
 
 	};
 
-
+	
+ 	/*
+	*Constructor without parameters
+	*Input: None
+	*Output: BinaryTree<T>
+ 	*/
 	template <typename T>
 	BinaryTree<T>::BinaryTree()
 	{
@@ -112,18 +117,34 @@ namespace BinaryTreeScope
 
 	}
 
+	
+ 	/*
+	*Destructor
+	*Input: None
+	*Output: (void)
+ 	*/
 	template <typename T>
 	BinaryTree<T>::~BinaryTree()
 	{
 		destroy(root);
 	}
 
+	
+ 	/*
+	*return true if binaryTree is empty, false otherwise
+ 	*/
 	template <typename T>
 	bool BinaryTree<T>::empty()
 	{
 		return root == nullptr;
 	}
 
+	
+ 	/*
+	*returns max 
+	*Input: (int) x, (int) y
+	*Output: (int) max value between x and y 
+ 	*/
 	template <typename T>
 	int max(int x, int y)
 	{
@@ -137,6 +158,13 @@ namespace BinaryTreeScope
 		}
 	}
 
+	
+ 	/*
+	*Inserts a new node in the Tree and balances after the insertion keeping the binary search tree properties
+	*
+	*Input: (Node<T>) current_node, (Node<T>) parent, (T) key 
+	*Output: (void)
+ 	*/
 	template <typename T>
 	void BinaryTree<T>::insert_private(Node<T>* &current_node, Node<T>* parent, T key)
 	{
@@ -163,6 +191,11 @@ namespace BinaryTreeScope
 	}
 
 
+ 	/*
+	*Wrapper for insert_private
+	*Input: (T) key
+	*Output: (void)
+ 	*/
 	template <typename T>
 	void BinaryTree<T>::insert(T key)
 	{
@@ -170,7 +203,11 @@ namespace BinaryTreeScope
 	}
 
 
-
+	/*
+	*Removes a certain node and balances afterwards
+	*Input: (Node<T>) node, (T) key
+	*Output: (Node<T>*)
+ 	*/
 	template <typename T>
 	Node<T>* BinaryTree<T>::remove_node(Node<T>* &node, T key) {
 	  	std::cout << "key remove: " << key << std::endl;
@@ -180,15 +217,15 @@ namespace BinaryTreeScope
 
 		    //Case 1: No children
 		    if(n->left == nullptr && n->right == nullptr){
-		      //
+		      
 		      	std::cout<<"Case1\n";
-		      //
+		      
 		    	if(p == nullptr){ //if node is root
 					root = nullptr;
 		      	}
 		      	else{
-					if(n == p->left) //if n is left child
-			 		 p->left = nullptr;
+				if(n == p->left) //if n is left child
+			 		p->left = nullptr;
 				else
 			  		p->right = nullptr;
 		      	}
@@ -232,9 +269,7 @@ namespace BinaryTreeScope
 
 		      Node<T>* s = successor(n->key);
 		      T new_key = s->key;
-		      std::cout<<"paso del sucesor :D\n";
 		      p = remove_node(s->parent, new_key);
-		      std::cout<<"lo oneshoteo :D\n";
 		      n->key = new_key;
 
 		    }
@@ -247,23 +282,26 @@ namespace BinaryTreeScope
 		}
 
 
-
+	/*
+	*Wrapper for remove_node
+	*Input: (T) key
+	*Output: (void)
+ 	*/
 	template <typename T>
 	void BinaryTree<T>::remove(T key)
 	{
 
 		Node<T>* node_to_destroy = find(key);
 		remove_node(node_to_destroy, key);
-		// if (parent != nullptr)
-		// {
-		//
-		// 	//fixImbalance(parent);
-		//
-		// }
 
 	}
 
 
+	/*
+	*Deletes each dynamic allocated node, in order to delete the whole tree, current_node must be called with root
+	*Input: (Node<T>*)
+	*Output: (void)
+ 	*/
 	template <typename T>
 	void BinaryTree<T>::destroy(Node<T>* current_node)
 	{
@@ -276,6 +314,11 @@ namespace BinaryTreeScope
 	}
 
 
+	/*
+	*Displays the tree in 1D
+	*Input: (Node<T>*) Node, (int) count
+	*Output: (void)
+ 	*/
 	template <typename T>
 	void BinaryTree<T>::displayNode(Node<T> *Node, int count)
 	{
@@ -289,8 +332,11 @@ namespace BinaryTreeScope
 	}
 
 
-
-
+	/*
+	*Wrapper for display
+	*Input: None
+	*Output: (void)
+ 	*/
 	template <typename T>
 	void BinaryTree<T>::display()
 	{
@@ -299,6 +345,11 @@ namespace BinaryTreeScope
 	}
 
 
+	/*
+	*Finds a node with a certain key and returns a pointer to it
+	*Input: (Node<T>*) current_node, (T) key
+	*Output: (Node<T>*)
+ 	*/
 	template <typename T>
 	Node<T>* BinaryTree<T>::find_node(Node<T>* current_node, T key)
 	{
@@ -322,6 +373,11 @@ namespace BinaryTreeScope
 	}
 
 
+	/*
+	*Wrapper for find
+	*Input: (T) key
+	*Output: (Node<T>*)
+ 	*/
 	template <typename T>
 	Node<T>* BinaryTree<T>::find(T key)
 	{
@@ -329,7 +385,12 @@ namespace BinaryTreeScope
 		return find_node(root, key);
 	}
 
-
+	/*
+	*Returns a pointer to the node with the greatest key starting at current_node, to find the max element
+	*of the entire tree, current_node must be called with root
+	*Input: (Node<T>*) current_node
+	*Output: (Node<T>*)
+ 	*/
 	template <typename T>
 	Node<T>* BinaryTree<T>::max(Node<T>* current_node)
 	{
@@ -343,8 +404,14 @@ namespace BinaryTreeScope
 		}
 
 	}
-
-
+	
+	
+	/*
+	*Returns a pointer to the node with the lowest key starting at current_node, to find the min element
+	*of the entire tree, current_node must be called with root
+	*Input: (Node<T>*) current_node
+	*Output: (Node<T>*)
+ 	*/
 	template <typename T>
 	Node<T>* BinaryTree<T>::min(Node<T>* current_node)
 	{
@@ -360,6 +427,11 @@ namespace BinaryTreeScope
 	}
 
 
+	/*
+	*Returns a pointer to the succesor of a given key
+	*Input: (Node<T>*) current_node, (T) key
+	*Output: (Node<T>*) 
+ 	*/
 	template <typename T>
 	Node<T>* BinaryTree<T>::successor_private(Node<T>* current_node, T key)
 	{
@@ -391,6 +463,11 @@ namespace BinaryTreeScope
 	}
 
 
+	/*
+	*Wrapper for successor_private
+	*Input: (T) key
+	*Output: (Node<T>*) If given key is not in the tree, an exception is raised
+ 	*/
 	template <typename T>
 	Node<T>* BinaryTree<T>::successor(T key)
 	{
@@ -402,6 +479,12 @@ namespace BinaryTreeScope
 		return node;
 	}
 
+	
+	/*
+	*Returns a pointer to the predecessor of a given key
+	*Input: (Node<T>*) current_node, (T) key
+	*Output: (Node<T>*) 
+ 	*/
 	template <typename T>
 	Node<T>* BinaryTree<T>::predecessor_private(Node<T>* current_node, T key)
 	{
@@ -428,8 +511,13 @@ namespace BinaryTreeScope
 		}
 		return current_predecessor;
 	}
-
-
+	
+	
+	/*
+	*Wrapper for predecessor_private
+	*Input: (T) key
+	*Output: (Node<T>*) If given key is not in the tree, an exception is raised
+ 	*/
 	template <typename T>
 	Node<T>* BinaryTree<T>::predecessor(T key)
 	{
@@ -442,6 +530,11 @@ namespace BinaryTreeScope
 	}
 
 
+	/*
+	*Checks whether the tree satisfies the binary search tree property
+	*Input: (Node<T>*) root
+	*Output: (bool)
+ 	*/
 	template <typename T>
 	bool BinaryTree<T>::check_if_bst ( Node<T> * root ) const
 	{
@@ -473,6 +566,11 @@ namespace BinaryTreeScope
 	}
 
 
+	/*
+	*Wrapper for check_if_bst
+	*Input: None
+	*Output: (bool)
+ 	*/
 	template <typename T>
 	bool BinaryTree<T>::check_if_bst () const
 	{
@@ -480,8 +578,11 @@ namespace BinaryTreeScope
 	}
 
 
-
-
+	/*
+	*
+	*
+	*
+ 	*/
 	template <typename T>
 	void BinaryTree<T>::toStringHelper(Node<T>* current_node, int count, int secondCount)
 	{
@@ -506,7 +607,12 @@ namespace BinaryTreeScope
 		}
 	}
 
-
+	
+	/*
+	*Prints the tree in  2D
+	*Input: None
+	*Output: (void)
+ 	*/
 	template <typename T>
 	void BinaryTree<T>::toString()
 	{
@@ -519,6 +625,12 @@ namespace BinaryTreeScope
 	//****AVL Tree*****
 	/*Varios metodos fueron obtenidos de la clase de Carlos*/
 
+	
+	/*
+	*Assigns the balancing factor to a given node
+	*Input: (Node<T>) 
+	*Output: (int)
+ 	*/
 	template <typename T>
 	int BinaryTree<T>::balFactOfNode(Node<T>* &current_node) {
 		if(current_node->left == nullptr && current_node->right == nullptr) //t is a leaf
@@ -545,6 +657,11 @@ namespace BinaryTreeScope
 	}
 
 
+	/*
+	*Rotates the tree the right with current_node as pivot
+	*Input: (Node<T>*) current_node
+	*Output: (void)
+ 	*/
 	template <typename T>
 	void BinaryTree<T>::rotateRight(Node<T>* &current_node)
 	{
@@ -579,8 +696,13 @@ namespace BinaryTreeScope
 			root = child;
 		}
 	}
-
-
+	
+	
+	/*
+	*Rotates the tree the left with current_node as pivot
+	*Input: (Node<T>*) current_node
+	*Output: (void)
+ 	*/
 	template <typename T>
 	void BinaryTree<T>::rotateLeft(Node<T>* &current_node)
 	{
@@ -612,6 +734,13 @@ namespace BinaryTreeScope
 		}
 	}
 
+	
+	/*
+	*Rotates the tree to the left with current_node left child as pivot, then rotates the tree to the right
+	*with current_node as the pivot
+	*Input: (Node<T>*) current_node
+	*Output: (void)
+ 	*/
 	template <typename T>
 	void BinaryTree<T>::dRotateRight(Node<T>* &current_node)
 	{
@@ -622,6 +751,13 @@ namespace BinaryTreeScope
 		std::cout << "rotate right: " << current_node->key << std::endl;
 	}
 
+	
+	/*
+	*Rotates the tree to the right with current_node right child as pivot, then rotates the tree to the left
+	*with current_node as the pivot
+	*Input: (Node<T>*) current_node
+	*Output: (void)
+ 	*/
 	template <typename T>
 	void BinaryTree<T>::dRotateLeft(Node<T>* &current_node)
 	{
@@ -630,7 +766,11 @@ namespace BinaryTreeScope
 	}
 
 
-
+	/*
+	*Balances the tree with current_node as pivot
+	*Input: (Node<T>*) current_node
+	*Output: (void)
+ 	*/
 	template <typename T>
 	void BinaryTree<T>::fixImbalance(Node<T>* &current_node) {
 		bool btest = false;
